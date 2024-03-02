@@ -25,19 +25,12 @@ public class UserServiceImpl extends PageRequestUtil implements UserService {
     public List<UserDto> getUsers(List<Long> ids, int from, int size) {
         Pageable page = createPageRequest(from, size);
         List<UserDto> users;
-        if (ids != null) {
-            users = userRepository.findByUserIds(ids, page)
-                    .getContent()
-                    .stream()
-                    .map(UserMapper::toUserDto)
-                    .collect(Collectors.toList());
-        } else {
-            users = userRepository.findAll(page)
-                    .getContent()
-                    .stream()
-                    .map(UserMapper::toUserDto)
-                    .collect(Collectors.toList());
-        }
+
+        users = userRepository.findByUserIds(ids, page)
+                .getContent()
+                .stream()
+                .map(UserMapper::toUserDto)
+                .collect(Collectors.toList());
         return users;
     }
 

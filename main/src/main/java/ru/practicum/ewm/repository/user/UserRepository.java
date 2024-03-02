@@ -12,7 +12,8 @@ import ru.practicum.ewm.model.user.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM User u WHERE u.id IN :ids")
+    @Query("SELECT u FROM User u " +
+            "WHERE (:ids is null OR u.id IN :ids)")
     Page<User> findByUserIds(@Param("ids") Iterable<Long> ids, Pageable page);
 
     default User getExistingUser(Long userId) {
