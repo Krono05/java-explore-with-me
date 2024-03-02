@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.dto.location.LocationDto;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -58,6 +59,7 @@ public class NewEventDto {
      * Ограничение на количество участников. Значение 0 - означает отсутствие ограничения
      * @default = 0
      */
+    @Min(0)
     private int participantLimit = 0;
 
     /*
