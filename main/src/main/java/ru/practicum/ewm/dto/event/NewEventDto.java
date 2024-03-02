@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.dto.location.LocationDto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -18,6 +19,7 @@ public class NewEventDto {
      * Краткое описание события
      */
     @NotNull
+    @NotBlank
     @Size(min = 20, max = 2000)
     private String annotation;
 
@@ -30,7 +32,7 @@ public class NewEventDto {
     /*
      * Полное описание события
      */
-    @NotNull
+    @NotBlank
     @Size(min = 20, max = 7000)
     private String description;
 
@@ -56,6 +58,7 @@ public class NewEventDto {
      * Ограничение на количество участников. Значение 0 - означает отсутствие ограничения
      * @default = 0
      */
+    @Positive
     private int participantLimit = 0;
 
     /*
