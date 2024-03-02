@@ -58,7 +58,6 @@ public class NewEventDto {
      * Ограничение на количество участников. Значение 0 - означает отсутствие ограничения
      * @default = 0
      */
-    @Positive
     private int participantLimit = 0;
 
     /*
