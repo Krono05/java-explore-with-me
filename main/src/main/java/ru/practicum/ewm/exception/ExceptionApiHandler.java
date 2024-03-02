@@ -19,9 +19,6 @@ import static ru.practicum.ewm.util.Constants.*;
 @Slf4j
 public class ExceptionApiHandler {
 
-    /* Некорректно составленный запрос при валидации Spring - код ошибки 400
-     * Возвращает ApiError
-     */
     @ExceptionHandler
     public ResponseEntity<ApiError> springValidationException(MethodArgumentNotValidException exception) {
         log.debug(exception.getMessage());
@@ -30,9 +27,6 @@ public class ExceptionApiHandler {
                         exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
-    /* Некорректно составленный запрос при валидации в коде - код ошибки 400
-     * Возвращает ApiError
-     */
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ApiError> manualValidationException(ValidationException exception) {
         log.debug(exception.getMessage());
@@ -41,9 +35,6 @@ public class ExceptionApiHandler {
                         exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
-    /* Некорректно составленный запрос введенного статуса/сортировки (enum) - код ошибки 400
-     * Возвращает ApiError
-     */
     @ExceptionHandler({InvalidFormatException.class, IllegalArgumentException.class})
     public ResponseEntity<ApiError> enumValidationException(RuntimeException exception) {
         log.debug(exception.getMessage());
@@ -52,9 +43,6 @@ public class ExceptionApiHandler {
                         exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
-    /* Запрошенный объект не найден - код ошибки 404
-     * Возвращает ApiError
-     */
     @ExceptionHandler({CategoryNotFoundException.class,
             UserNotFoundException.class,
             CompilationNotFoundException.class,
@@ -67,9 +55,6 @@ public class ExceptionApiHandler {
                 exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
-    /* Нарушение целостности данных - код ошибки 409
-     * Возвращает ApiError
-     */
     @ExceptionHandler
     public ResponseEntity<ApiError> constraintViolationException(ConstraintViolationException exception) {
         log.debug(exception.getMessage());
@@ -78,9 +63,6 @@ public class ExceptionApiHandler {
                         exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
-    /* Конфликт между данными - код ошибки 409
-     * Возвращает ApiError
-     */
     @ExceptionHandler
     public ResponseEntity<ApiError> forbiddenException(ForbiddenException exception) {
         log.debug(exception.getMessage());

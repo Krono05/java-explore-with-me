@@ -1,9 +1,10 @@
 package ru.practicum.ewm.statsserver.model.stats;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class Stats {
 
