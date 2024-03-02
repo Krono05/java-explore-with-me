@@ -2,6 +2,7 @@ package ru.practicum.ewm.statsserver.model.stats;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
