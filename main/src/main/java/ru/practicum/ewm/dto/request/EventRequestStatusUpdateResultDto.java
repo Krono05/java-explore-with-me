@@ -1,23 +1,19 @@
 package ru.practicum.ewm.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventRequestStatusUpdateResultDto {
 
-    /*
-     * Список подтвержденных заявок на участие в событии
-     */
     private List<ParticipationRequestDto> confirmedRequests;
 
-    /*
-     * Список отклоненных заявок на участие в событии
-     */
     private List<ParticipationRequestDto> rejectedRequests;
 }

@@ -20,23 +20,12 @@ public class PhotoPrivateController {
 
     private final PhotoService photoService;
 
-    /*
-     * Добавление фотографий к комментариям
-     * @param files - фотографии формата form-data
-     * @param commentId - id комментария
-     * Возвращает список добавленных фотографий, код ошибки 404 (комментарий не найден), либо код 417 (превышен допустимый размер файла)
-     */
     @PostMapping("/upload/comments/{commentId}")
     @ResponseStatus(HttpStatus.CREATED)
     public List<PhotoDto> uploadFiles(@RequestParam("files") List<MultipartFile> files, @PathVariable Long commentId) {
         return photoService.uploadFiles(files, commentId);
     }
 
-    /*
-     * Технический эндпоинт для отображения загруженных фотографий в клиенте
-     * @param id - uuid фотографии
-     * Возвращает HTML страницу с загруженной фотографией в теге <img>
-     */
     @GetMapping("/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         Photo photo = photoService.getPhotoById(id);

@@ -1,9 +1,9 @@
 package ru.practicum.ewm.model.event;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 import ru.practicum.ewm.model.category.Category;
 import ru.practicum.ewm.model.comment.Comment;
 import ru.practicum.ewm.model.compilation.Compilation;
@@ -11,12 +11,25 @@ import ru.practicum.ewm.model.location.Location;
 import ru.practicum.ewm.model.request.Request;
 import ru.practicum.ewm.model.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,14 +47,14 @@ public class Event {
     @Column(nullable = false, length = 2000)
     private String annotation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(nullable = false, length = 7000)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "initiator_id")
     private User initiator;
 
@@ -54,7 +67,7 @@ public class Event {
     @Column(name = "event_date")
     private LocalDateTime eventDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
 
@@ -74,15 +87,12 @@ public class Event {
     private EventState state;
 
     @ManyToMany(mappedBy = "events")
-    @ToString.Exclude
     private List<Compilation> compilations;
 
     @OneToMany(mappedBy = "event")
-    @ToString.Exclude
     private List<Request> requests;
 
     @OneToMany(mappedBy = "event")
-    @ToString.Exclude
     private List<Comment> comments;
 
     @Column
