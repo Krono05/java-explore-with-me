@@ -26,7 +26,6 @@ import ru.practicum.ewm.repository.user.UserRepository;
 import ru.practicum.ewm.util.PageRequestUtil;
 
 import javax.persistence.criteria.Predicate;
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -79,7 +78,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
     }
 
     @Override
-    @Transactional
     public void deleteCommentByUser(Long userId, Long commentId) {
         User user = userRepository.getExistingUser(userId);
         Comment comment = commentRepository.getExistingComment(commentId);
@@ -158,7 +156,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
     }
 
     @Override
-    @Transactional
     public void deleteCommentByAdmin(Long commentId) {
         Comment comment = commentRepository.getExistingComment(commentId);
         Event event = eventRepository.getExistingEvent(comment.getEvent().getId());

@@ -12,7 +12,6 @@ import ru.practicum.ewm.model.photo.Photo;
 import ru.practicum.ewm.repository.comment.CommentRepository;
 import ru.practicum.ewm.repository.photo.PhotoRepository;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,6 @@ public class PhotoServiceImpl implements PhotoService {
     private final CommentRepository commentRepository;
 
     @Override
-    @Transactional
     public List<PhotoDto> uploadFiles(List<MultipartFile> files, Long commentId) {
         Comment comment = commentRepository.getExistingComment(commentId);
         List<Photo> uploaded = new ArrayList<>();
