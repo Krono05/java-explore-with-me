@@ -4,11 +4,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.practicum.ewm.exception.EventNotFoundException;
 import ru.practicum.ewm.model.event.Event;
 import ru.practicum.ewm.model.event.EventState;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +35,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             throw new EventNotFoundException(String.format("Event with id=%d was not found", eventId));
         });
     }
+    @Modifying
+    @Query(value = "UPDATE events SET rating = :rating WHERE event_id = :eventId", nativeQuery = true)
+    void updateEventRating(BigDecimal rating, Long eventId);
 
     default Event getExistingPublishedEvent(Long eventId, EventState state) {
         return findByIdAndState(eventId, state).orElseThrow(() -> {

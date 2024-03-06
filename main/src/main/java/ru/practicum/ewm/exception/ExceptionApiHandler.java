@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import ru.practicum.ewm.exception.model.ApiError;
 
 import javax.persistence.EntityNotFoundException;
@@ -35,7 +36,7 @@ public class ExceptionApiHandler {
                         exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
-    @ExceptionHandler({InvalidFormatException.class, IllegalArgumentException.class})
+    @ExceptionHandler({InvalidFormatException.class, IllegalArgumentException.class, PhotoUploadException.class})
     public ResponseEntity<ApiError> enumValidationException(RuntimeException exception) {
         log.debug(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -68,6 +69,22 @@ public class ExceptionApiHandler {
         log.debug(exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(new ApiError("CONFLICT", "For the requested operation the conditions are not met.",
+                        exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiError> handleMaxSizeException(MaxUploadSizeExceededException exception) {
+        log.debug(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                .body(new ApiError("EXPECTATION_FAILED", "Expectation given in the request's header could not be met.",
+                        exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
+    }
+
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<ApiError> handleUnsupportedFormatException(UnsupportedOperationException exception) {
+        log.debug(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+                .body(new ApiError("UNSUPPORTED_MEDIA_TYPE", "The payload format is in an unsupported format.",
                         exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 }
