@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.practicum.ewm.dto.location.LocationDto;
 import ru.practicum.ewm.model.event.EventStateUserAction;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -50,6 +51,7 @@ public class UpdateEventUserRequestDto {
     /*
      * Ограничение на количество участников. Значение 0 - означает отсутствие ограничения
      */
+    @Min(0)
     private Integer participantLimit;
 
     /*
