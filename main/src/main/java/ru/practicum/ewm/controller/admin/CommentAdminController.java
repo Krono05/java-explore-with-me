@@ -17,6 +17,17 @@ public class CommentAdminController {
 
     private final CommentService commentService;
 
+    /*
+     * Получение комментариев администратором с возможностью фильтрации
+     * В случае, если по заданным фильтрам не найдено ни одного комментария, возвращает пустой список
+     * @param events - список событий, для которых необходимо выгрузить комментарии
+     * @param rangeStart - дата и время, не раньше которых был оставлен комментарий
+     * @param rangeEnd - дата и время, не позже которых был оставлен комментарий
+     * @param rating - рейтинг комментария (от 1 до 5)
+     * @param from - количество комментариев, которые нужно пропустить для формирования текущего набора
+     * @param size - количество комментариев в наборе
+     * Возвращает List<CommentDto> - список найденных комментариев, либо код 400 (запрос составлен некорректно)
+     */
     @GetMapping
     public List<CommentDto> getCommentsByAdmin(@RequestParam(required = false) List<Long> events,
                                         @RequestParam(required = false) String rangeStart,
@@ -27,6 +38,11 @@ public class CommentAdminController {
         return commentService.getCommentsByAdmin(events, rangeStart, rangeEnd, rating, from, size);
     }
 
+    /*
+     * Удаление комментария к событию администратором
+     * @param commentId - id комментария
+     * Возвращает 204 при успешном удалении, код ошибки 404 (комментарий не найден)
+     */
     @DeleteMapping("/{commentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCommentByAdmin(@PathVariable Long commentId) {

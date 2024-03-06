@@ -31,16 +31,16 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByCategoryId(Long catId);
 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE events SET rating = :rating WHERE event_id = :eventId", nativeQuery = true)
+    void updateEventRating(BigDecimal rating, Long eventId);
+
     default Event getExistingEvent(Long eventId) {
         return findById(eventId).orElseThrow(() -> {
             throw new EventNotFoundException(String.format("Event with id=%d was not found", eventId));
         });
     }
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE events SET rating = :rating WHERE event_id = :eventId", nativeQuery = true)
-    void updateEventRating(BigDecimal rating, Long eventId);
 
     default Event getExistingPublishedEvent(Long eventId, EventState state) {
         return findByIdAndState(eventId, state).orElseThrow(() -> {
