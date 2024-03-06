@@ -26,7 +26,6 @@ import ru.practicum.ewm.repository.user.UserRepository;
 import ru.practicum.ewm.util.PageRequestUtil;
 
 import javax.persistence.criteria.Predicate;
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

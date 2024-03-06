@@ -13,6 +13,7 @@ public abstract class PageRequestUtil {
     protected PageRequest createPageRequest(int from, int size, EventSort sort) {
         return PageRequest.of(from / size, size, sort.getSortValue());
     }
+
     protected PageRequest createPageRequest(int from, int size, CommentSort sort) {
         return PageRequest.of(from / size, size, sort.getSortValue());
     }

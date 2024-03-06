@@ -35,6 +35,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             throw new EventNotFoundException(String.format("Event with id=%d was not found", eventId));
         });
     }
+
     @Modifying
     @Query(value = "UPDATE events SET rating = :rating WHERE event_id = :eventId", nativeQuery = true)
     void updateEventRating(BigDecimal rating, Long eventId);
