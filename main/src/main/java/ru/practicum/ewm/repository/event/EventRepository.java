@@ -11,6 +11,7 @@ import ru.practicum.ewm.exception.EventNotFoundException;
 import ru.practicum.ewm.model.event.Event;
 import ru.practicum.ewm.model.event.EventState;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     }
 
     @Modifying
+    @Transactional
     @Query(value = "UPDATE events SET rating = :rating WHERE event_id = :eventId", nativeQuery = true)
     void updateEventRating(BigDecimal rating, Long eventId);
 
