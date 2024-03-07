@@ -1,11 +1,12 @@
-package ru.practicum.ewm.model.mappers;
+package ru.practicum.ewm.model.comment;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.ewm.dto.comment.CommentDto;
 import ru.practicum.ewm.dto.comment.NewCommentDto;
 import ru.practicum.ewm.model.Comment;
-import ru.practicum.ewm.model.Event;
-import ru.practicum.ewm.model.User;
+import ru.practicum.ewm.model.event.Event;
+import ru.practicum.ewm.model.user.User;
+
 
 import java.time.LocalDateTime;
 

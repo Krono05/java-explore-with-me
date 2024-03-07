@@ -1,4 +1,4 @@
-package ru.practicum.ewm.service.impl;
+package ru.practicum.ewm.service.comment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -8,16 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.dto.comment.CommentDto;
 import ru.practicum.ewm.dto.comment.NewCommentDto;
 import ru.practicum.ewm.dto.comment.UpdateCommentDto;
-import ru.practicum.ewm.exception.NotFoundException;
-import ru.practicum.ewm.exception.UncorrectedParametersException;
+import ru.practicum.ewm.exception.CommentNotFoundException;
+import ru.practicum.ewm.exception.EventNotFoundException;
+import ru.practicum.ewm.exception.ForbiddenException;
+import ru.practicum.ewm.exception.UserNotFoundException;
 import ru.practicum.ewm.model.Comment;
-import ru.practicum.ewm.model.Event;
-import ru.practicum.ewm.model.User;
-import ru.practicum.ewm.model.enums.EventStatus;
-import ru.practicum.ewm.model.mappers.CommentMapper;
+import ru.practicum.ewm.model.comment.CommentMapper;
+import ru.practicum.ewm.model.event.Event;
+import ru.practicum.ewm.model.event.EventState;
+import ru.practicum.ewm.model.user.User;
 import ru.practicum.ewm.repository.CommentRepository;
-import ru.practicum.ewm.repository.EventRepository;
-import ru.practicum.ewm.repository.UserRepository;
+import ru.practicum.ewm.repository.event.EventRepository;
+import ru.practicum.ewm.repository.user.UserRepository;
 import ru.practicum.ewm.service.CommentService;
 
 import java.time.LocalDateTime;
@@ -43,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
         LocalDateTime updateTime = LocalDateTime.now();
 
         if (updateTime.isAfter(comment.getCreated().plusHours(1L))) {
-            throw new UncorrectedParametersException("Сообщение возможно отредактировать только в течение часа");
+            throw new ForbiddenException("Сообщение возможно отредактировать только в течение часа");
         }
 
         comment.setText(updateCommentDto.getText());
@@ -63,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     public Comment getUserCommentByUserAndCommentId(Long userId, Long commentId) {
         checkUser(userId);
-        return commentRepository.findByAuthor_IdAndId(userId, commentId).orElseThrow(() -> new NotFoundException(
+        return commentRepository.findByAuthor_IdAndId(userId, commentId).orElseThrow(() -> new CommentNotFoundException(
                 String.format("У пользователя c id=%d  не найден комментарий с id=%d", userId, commentId)));
     }
 
@@ -105,30 +107,30 @@ public class CommentServiceImpl implements CommentService {
     public CommentDto createComment(Long userId, Long eventId, NewCommentDto commentDto) {
         Event event = checkEvent(eventId);
         User user = checkUser(userId);
-        if (!event.getEventStatus().equals(EventStatus.PUBLISHED)) {
-            throw new UncorrectedParametersException("Невозможно добавить комментарий к событию со статусом не PUBLISHED");
+        if (!event.getState().equals(EventState.PUBLISHED)) {
+            throw new ForbiddenException("Невозможно добавить комментарий к событию со статусом не PUBLISHED");
         }
         return CommentMapper.toCommentDto(commentRepository.save(CommentMapper.toComment(commentDto, event, user)));
     }
 
     private Event checkEvent(Long id) {
-        return eventRepository.findById(id).orElseThrow(() -> new NotFoundException(
+        return eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(
                 String.format("Событие с id=%d  не найдено", id)));
     }
 
     private User checkUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NotFoundException(
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(
                 String.format("Пользователь c id=%d  не найден", id)));
     }
 
     private Comment checkComment(Long id) {
-        return commentRepository.findById(id).orElseThrow(() -> new NotFoundException(
+        return commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(
                 String.format("Комментарий c id=%d  не найден", id)));
     }
 
     private void checkAuthorComment(User user, Comment comment) {
         if (!comment.getAuthor().equals(user)) {
-            throw new UncorrectedParametersException("Пользователь не является автором комментария");
+            throw new ForbiddenException("Пользователь не является автором комментария");
         }
     }
 }

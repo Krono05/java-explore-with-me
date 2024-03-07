@@ -4,6 +4,8 @@ package ru.practicum.ewm.model;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.practicum.ewm.model.event.Event;
+import ru.practicum.ewm.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
