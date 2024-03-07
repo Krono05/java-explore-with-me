@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "f0b4c6f5-e925-4f47-a10a-fe26822839df",
+		"_postman_id": "f0b4c6f5-e925-4f47-a10a-fe26822834df",
 		"name": "Explore With Me - Comment feature",
 		"description": "Тестирование дополнительной функциональности (фичи) добавления комментариев в рамках дипломного проекта.\n\nКоллекция не тестирует работу эндпоинтов по добавлению фотографий.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26635933"
+		"_exporter_id": "26635938"
 	},
 	"item": [
 		{
