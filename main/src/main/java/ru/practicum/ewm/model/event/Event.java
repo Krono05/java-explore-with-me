@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import ru.practicum.ewm.model.category.Category;
 import ru.practicum.ewm.model.comment.Comment;
 import ru.practicum.ewm.model.compilation.Compilation;
@@ -88,15 +87,12 @@ public class Event {
     private EventState state;
 
     @ManyToMany(mappedBy = "events")
-    @ToString.Exclude
     private List<Compilation> compilations;
 
     @OneToMany(mappedBy = "event")
-    @ToString.Exclude
     private List<Request> requests;
 
     @OneToMany(mappedBy = "event")
-    @ToString.Exclude
     private List<Comment> comments;
 
     @Column
