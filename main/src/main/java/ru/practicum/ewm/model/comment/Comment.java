@@ -1,8 +1,9 @@
 package ru.practicum.ewm.model.comment;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.practicum.ewm.model.event.Event;
 import ru.practicum.ewm.model.user.User;
 
@@ -16,7 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
