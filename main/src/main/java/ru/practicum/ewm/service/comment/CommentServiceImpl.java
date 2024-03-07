@@ -14,7 +14,7 @@ import ru.practicum.ewm.model.comment.Comment;
 import ru.practicum.ewm.model.comment.CommentSort;
 import ru.practicum.ewm.model.event.Event;
 import ru.practicum.ewm.model.request.Request;
-import ru.practicum.ewm.model.request.RequestStatus;
+//import ru.practicum.ewm.model.request.RequestStatus;
 import ru.practicum.ewm.model.user.User;
 import ru.practicum.ewm.repository.comment.CommentRepository;
 import ru.practicum.ewm.repository.event.EventRepository;
