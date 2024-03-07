@@ -1,17 +1,15 @@
 package ru.practicum.ewm.dto.event;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ru.practicum.ewm.dto.location.LocationDto;
 import ru.practicum.ewm.model.event.EventStateAdminAction;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateEventAdminRequestDto {
