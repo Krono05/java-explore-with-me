@@ -11,16 +11,10 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class NewCommentDto {
 
-    /*
-     * Текст отзыва
-     */
     @NotNull
     @Size(min = 50, max = 2000)
     private String text;
 
-    /*
-     * Рейтинг, поставленный событию в отзыве (от 1 до 5)
-     */
     @NotNull
     @Min(1)
     @Max(5)

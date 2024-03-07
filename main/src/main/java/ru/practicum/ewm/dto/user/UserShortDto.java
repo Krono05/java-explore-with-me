@@ -9,13 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserShortDto {
 
-    /*
-     * Идентификатор
-     */
     private Long id;
 
-    /*
-     * Имя
-     */
     private String name;
 }

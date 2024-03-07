@@ -11,13 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EventRequestStatusUpdateRequestDto {
 
-    /*
-     * Идентификаторы запросов на участие в событии текущего пользователя
-     */
     private List<Long> requestIds;
 
-    /*
-     * Новый статус запроса на участие в событии текущего пользователя (CONFIRMED, REJECTED)
-     */
     private String status;
 }

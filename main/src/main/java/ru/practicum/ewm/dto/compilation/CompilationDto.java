@@ -12,23 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 public class CompilationDto {
 
-    /*
-     * Идентификатор
-     */
     private Long id;
 
-    /*
-     * Закреплена ли подборка на главной странице сайта
-     */
     private Boolean pinned;
 
-    /*
-     * Заголовок подборки
-     */
     private String title;
 
-    /*
-     * Список событий входящих в подборку
-     */
     private List<EventShortDto> events;
 }

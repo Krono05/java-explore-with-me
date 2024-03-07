@@ -14,22 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 public class NewCompilationDto {
 
-    /*
-     * Заголовок подборки
-     */
     @NotNull
     @NotBlank
     @Size(min = 1, max = 50)
     private String title;
 
-    /*
-     * Закреплена ли подборка на главной странице сайта
-     * @default = false
-     */
     private Boolean pinned = false;
 
-    /*
-     * Список событий входящих в подборку
-     */
     private List<Long> events;
 }

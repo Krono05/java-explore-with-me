@@ -13,17 +13,11 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class NewUserRequestDto {
 
-    /*
-     * Почтовый адрес
-     */
     @NotBlank
     @Email
     @Size(min = 6, max = 254)
     private String email;
 
-    /*
-     * Имя
-     */
     @NotBlank
     @Size(min = 2, max = 250)
     private String name;

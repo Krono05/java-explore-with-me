@@ -9,29 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentDto {
 
-    /*
-     * Идентификатор
-     */
     private Long id;
 
-    /*
-     * Имя пользователя, опубликовавшего отзыв
-     */
     private String authorName;
 
-    /*
-     * Текст отзыва
-     */
     private String text;
 
-    /*
-     * Дата и время создания отзыва (в формате "yyyy-MM-dd HH:mm:ss")
-     */
     private String created;
 
-    /*
-     * Рейтинг, поставленный событию в отзыве (от 1 до 5)
-     */
     private int rating;
 
 }

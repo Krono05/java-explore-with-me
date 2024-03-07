@@ -14,58 +14,29 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UpdateEventAdminRequestDto {
 
-    /*
-     * Краткое описание
-     */
     @Size(min = 20, max = 2000)
     private String annotation;
 
-    /*
-     * Идентификатор категории, к которой относится событие
-     */
     @Positive
     private Long category;
 
-    /*
-     * Полное описание события
-     */
     @Size(min = 20, max = 7000)
     private String description;
 
-    /*
-     * Дата и время, на которые намечено событие (в формате "yyyy-MM-dd HH:mm:ss")
-     */
     private String eventDate;
 
-    /*
-     * Широта и долгота места проведения события
-     */
     private LocationDto location;
 
-    /*
-     * Нужно ли оплачивать участие
-     */
     private Boolean paid;
 
-    /*
-     * Ограничение на количество участников. Значение 0 - означает отсутствие ограничения
-     */
+
     @Positive
     private Integer participantLimit;
 
-    /*
-     * Нужна ли пре-модерация заявок на участие
-     */
     private Boolean requestModeration;
 
-    /*
-     * Новое состояние события (PUBLISH_EVENT, REJECT_EVENT)
-     */
     private EventStateAdminAction stateAction;
 
-    /*
-     * Заголовок
-     */
     @Size(min = 3, max = 120)
     private String title;
 }

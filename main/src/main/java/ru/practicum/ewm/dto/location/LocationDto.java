@@ -9,13 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LocationDto {
 
-    /*
-     * Широта
-     */
     private float lat;
 
-    /*
-     * Долгота
-     */
     private float lon;
 }

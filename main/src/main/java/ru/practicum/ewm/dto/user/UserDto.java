@@ -9,18 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDto {
 
-    /*
-     * Идентификатор
-     */
+
     private Long id;
 
-    /*
-     * Почтовый адрес
-     */
     private String email;
 
-    /*
-     * Имя
-     */
     private String name;
 }
