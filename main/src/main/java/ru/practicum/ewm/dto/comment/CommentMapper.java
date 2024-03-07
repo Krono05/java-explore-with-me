@@ -3,10 +3,7 @@ package ru.practicum.ewm.dto.comment;
 import lombok.experimental.UtilityClass;
 import ru.practicum.ewm.model.comment.Comment;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
-import static ru.practicum.ewm.util.Constants.*;
+import static ru.practicum.ewm.util.Constants.DATE_FORMAT;
 
 @UtilityClass
 public class CommentMapper {
