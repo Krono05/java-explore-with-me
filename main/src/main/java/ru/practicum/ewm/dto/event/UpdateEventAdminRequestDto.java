@@ -50,6 +50,7 @@ public class UpdateEventAdminRequestDto {
     /*
      * Ограничение на количество участников. Значение 0 - означает отсутствие ограничения
      */
+    @Positive
     private Integer participantLimit;
 
     /*
