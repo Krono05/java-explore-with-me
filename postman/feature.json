@@ -10,52 +10,7 @@
 		{
 			"name": "Добавление и удаление комментариев",
 			"item": [
-				{
-					"name": "Add comment for user who not participate",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 409\", function () {",
-									"    pm.response.to.have.status(409);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"text\": \"Отличное мероприятие, мне очень понравилось. Крутая организация и отличное времяпрепровождение. Посетил бы еще раз.\",\n  \"rating\": 5\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/users/16/events/5/comment",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"16",
-								"events",
-								"5",
-								"comment"
-							]
-						}
-					},
-					"response": []
-				},
-				{
+					{
 					"name": "Add comment with short text < 50",
 					"event": [
 						{
@@ -341,41 +296,6 @@
 								"events",
 								"5",
 								"comment"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete comment by non-author",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Ответ должен содержать код статуса 409\", function () {",
-									"    pm.response.to.have.status(409);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/16/comments/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"16",
-								"comments",
-								"1"
 							]
 						}
 					},

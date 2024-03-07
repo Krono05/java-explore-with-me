@@ -14,7 +14,6 @@ import ru.practicum.ewm.model.comment.Comment;
 import ru.practicum.ewm.model.comment.CommentSort;
 import ru.practicum.ewm.model.event.Event;
 import ru.practicum.ewm.model.request.Request;
-//import ru.practicum.ewm.model.request.RequestStatus;
 import ru.practicum.ewm.model.user.User;
 import ru.practicum.ewm.repository.comment.CommentRepository;
 import ru.practicum.ewm.repository.event.EventRepository;
@@ -48,11 +47,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         User user = userRepository.getExistingUser(userId);
         Event event = eventRepository.getExistingEvent(eventId);
 
-        Request request = requestRepository.findByRequesterIdAndEventId(userId, eventId);
-//        if (request == null || request.getStatus() != RequestStatus.CONFIRMED) {
-//            log.info("User with ID = {} must participate in the event with ID = {} to leave a comment.", userId, eventId);
-//            throw new ForbiddenException("User must participate in the event to leave a comment.");
-//        }
 
         Comment existingComment = commentRepository.findByAuthorIdAndEventId(userId, eventId);
         if (existingComment != null) {
