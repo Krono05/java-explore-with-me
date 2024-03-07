@@ -3,7 +3,15 @@ package ru.practicum.ewm.controller.priv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.ewm.dto.event.EventFullDto;
 import ru.practicum.ewm.dto.event.EventShortDto;
 import ru.practicum.ewm.dto.event.NewEventDto;
@@ -26,8 +34,8 @@ public class EventPrivateController {
 
     @GetMapping("/users/{userId}/events")
     public List<EventShortDto> getEventsAddedByUser(@PathVariable Long userId,
-                                                      @RequestParam(defaultValue = "0") int from,
-                                                      @RequestParam(defaultValue = "10") int size) {
+                                                    @RequestParam(defaultValue = "0") int from,
+                                                    @RequestParam(defaultValue = "10") int size) {
         return eventService.getEventsAddedByUser(userId, from, size);
     }
 
@@ -44,13 +52,13 @@ public class EventPrivateController {
 
     @PatchMapping("/users/{userId}/events/{eventId}")
     public EventFullDto editEventAddedByUser(@PathVariable Long userId, @PathVariable Long eventId,
-                                               @Validated @RequestBody UpdateEventUserRequestDto updateEventUserRequestDto) {
+                                             @Validated @RequestBody UpdateEventUserRequestDto updateEventUserRequestDto) {
         return eventService.editEventAddedByUser(userId, eventId, updateEventUserRequestDto);
     }
 
     @GetMapping("/users/{userId}/events/{eventId}/requests")
     public List<ParticipationRequestDto> getRequestsForAddedEventByUser(@PathVariable Long userId,
-                                                                          @PathVariable Long eventId) {
+                                                                        @PathVariable Long eventId) {
         return requestService.getRequestsForAddedEventByUser(userId, eventId);
     }
 
