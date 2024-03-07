@@ -3,7 +3,6 @@ package ru.practicum.ewm.dto.comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewm.dto.photo.PhotoDto;
 
 import java.util.List;
 
@@ -37,8 +36,4 @@ public class CommentDto {
      */
     private int rating;
 
-    /*
-     * Фотографии, прикрепленные к отзыву
-     */
-    private List<PhotoDto> photos;
 }

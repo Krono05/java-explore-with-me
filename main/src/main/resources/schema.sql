@@ -65,11 +65,3 @@ CREATE TABLE IF NOT EXISTS comments (
     created TIMESTAMP WITHOUT TIME ZONE,
     rating int NOT NULL
 );
-
-CREATE TABLE IF NOT EXISTS comment_photos (
-    photo_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    comment_id BIGINT NOT NULL REFERENCES comments(comment_id) ON DELETE CASCADE,
-    name varchar(255),
-    type varchar(50),
-    data BYTEA
-);

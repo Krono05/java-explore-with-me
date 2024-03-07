@@ -8,19 +8,16 @@ import org.springframework.stereotype.Service;
 import ru.practicum.ewm.dto.comment.CommentDto;
 import ru.practicum.ewm.dto.comment.CommentMapper;
 import ru.practicum.ewm.dto.comment.NewCommentDto;
-import ru.practicum.ewm.dto.photo.PhotoMapper;
 import ru.practicum.ewm.exception.CommentNotFoundException;
 import ru.practicum.ewm.exception.ForbiddenException;
 import ru.practicum.ewm.model.comment.Comment;
 import ru.practicum.ewm.model.comment.CommentSort;
 import ru.practicum.ewm.model.event.Event;
-import ru.practicum.ewm.model.photo.Photo;
 import ru.practicum.ewm.model.request.Request;
 import ru.practicum.ewm.model.request.RequestStatus;
 import ru.practicum.ewm.model.user.User;
 import ru.practicum.ewm.repository.comment.CommentRepository;
 import ru.practicum.ewm.repository.event.EventRepository;
-import ru.practicum.ewm.repository.photo.PhotoRepository;
 import ru.practicum.ewm.repository.request.RequestRepository;
 import ru.practicum.ewm.repository.user.UserRepository;
 import ru.practicum.ewm.util.PageRequestUtil;
@@ -45,7 +42,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
-    private final PhotoRepository photoRepository;
 
     @Override
     public CommentDto addComment(Long userId, Long eventId, NewCommentDto newCommentDto) {
@@ -92,8 +88,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         }
 
         commentRepository.delete(comment);
-        photoRepository.deleteByCommentId(commentId);
-        log.info("Deleted comment with ID = {} by author and linked photos", commentId);
+        log.info("Deleted comment with ID = {} by author", commentId);
 
         calculateAndUpdateRating(event);
         log.info("Updated rating for the event with ID = {}, new rating = {}", event.getId(), event.getRating());
@@ -109,7 +104,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         }
 
         CommentDto commentDto = CommentMapper.toCommentDto(comment);
-        findPhotos(commentDto);
 
         return commentDto;
     }
@@ -124,7 +118,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
                 .map(CommentMapper::toCommentDto)
                 .collect(Collectors.toList());
 
-        comments.forEach(this::findPhotos);
         return comments;
     }
 
@@ -153,7 +146,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         }, page);
 
         List<CommentDto> commentList = comments.getContent().stream().map(CommentMapper::toCommentDto).collect(Collectors.toList());
-        commentList.forEach(this::findPhotos);
         return commentList;
     }
 
@@ -163,16 +155,10 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         Comment comment = commentRepository.getExistingComment(commentId);
         Event event = eventRepository.getExistingEvent(comment.getEvent().getId());
         commentRepository.delete(comment);
-        photoRepository.deleteByCommentId(commentId);
-        log.info("Deleted comment with ID = {} by admin and linked photos", commentId);
+        log.info("Deleted comment with ID = {} by admin", commentId);
 
         calculateAndUpdateRating(event);
         log.info("Updated rating for the event with ID = {}, new rating = {}", event.getId(), event.getRating());
-    }
-
-    private void findPhotos(CommentDto commentDto) {
-        List<Photo> photos = photoRepository.findByCommentId(commentDto.getId());
-        commentDto.setPhotos(photos.stream().map(PhotoMapper::toPhotoDto).collect(Collectors.toList()));
     }
 
     private void calculateAndUpdateRating(Event event) {

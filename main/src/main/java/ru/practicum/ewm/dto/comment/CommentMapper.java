@@ -1,7 +1,6 @@
 package ru.practicum.ewm.dto.comment;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.ewm.dto.photo.PhotoMapper;
 import ru.practicum.ewm.model.comment.Comment;
 
 import java.util.ArrayList;
@@ -19,8 +18,8 @@ public class CommentMapper {
                 null,
                 null,
                 null,
-                newCommentDto.getRating(),
-                new ArrayList<>()
+                newCommentDto.getRating()
+
         );
     }
 
@@ -30,8 +29,7 @@ public class CommentMapper {
                 comment.getAuthor().getName(),
                 comment.getText(),
                 comment.getCreated().format(DATE_FORMAT),
-                comment.getRating(),
-                comment.getPhotos().stream().map(PhotoMapper::toPhotoDto).collect(Collectors.toList())
+                comment.getRating()
         );
     }
 }

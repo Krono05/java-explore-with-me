@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.model.event.Event;
-import ru.practicum.ewm.model.photo.Photo;
 import ru.practicum.ewm.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -40,6 +38,4 @@ public class Comment {
     @Column(name = "rating")
     private int rating;
 
-    @OneToMany(mappedBy = "comment")
-    private List<Photo> photos;
 }

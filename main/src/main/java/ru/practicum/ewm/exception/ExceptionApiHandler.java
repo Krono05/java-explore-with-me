@@ -48,7 +48,7 @@ public class ExceptionApiHandler {
      * Некорректно составленный запрос введенного статуса/сортировки (enum) - код ошибки 400
      * Возвращает ApiError
      */
-    @ExceptionHandler({InvalidFormatException.class, IllegalArgumentException.class, PhotoUploadException.class})
+    @ExceptionHandler({InvalidFormatException.class, IllegalArgumentException.class})
     public ResponseEntity<ApiError> enumValidationException(RuntimeException exception) {
         log.debug(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
