@@ -8,13 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import ru.practicum.ewm.exception.model.ApiError;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 
-import static ru.practicum.ewm.util.Constants.*;
+import static ru.practicum.ewm.util.Constants.DATE_FORMAT;
 
 @RestControllerAdvice
 @Slf4j
@@ -54,7 +53,7 @@ public class ExceptionApiHandler {
         log.debug(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ApiError("NOT_FOUND", "The required object was not found.",
-                exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
+                        exception.getMessage(), LocalDateTime.now().format(DATE_FORMAT)));
     }
 
     @ExceptionHandler
