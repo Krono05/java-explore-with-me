@@ -1,29 +1,31 @@
-package ru.practicum.ewm.repository;
+package ru.practicum.ewm.repository.comment;
 
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.practicum.ewm.dto.comment.CountCommentsByEventDto;
-import ru.practicum.ewm.model.Comment;
+import org.springframework.stereotype.Repository;
+import ru.practicum.ewm.exception.CommentNotFoundException;
+import ru.practicum.ewm.model.comment.Comment;
 
-import java.util.List;
-import java.util.Optional;
+import java.math.BigDecimal;
 
+@Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findAllByEvent_Id(Long eventId, Pageable pageable);
 
-    List<Comment> findByAuthor_Id(Long userId);
+    Comment findByAuthorIdAndEventId(Long authorId, Long eventId);
 
-    Optional<Comment> findByAuthor_IdAndId(Long userId, Long id);
+    Page<Comment> findByEventId(Long eventId, Pageable pageable);
 
-    @Query("select new ru.practicum.ewm.dto.comment.CountCommentsByEventDto(c.event.id, COUNT(c)) " +
-            "from comments as c where c.event.id in ?1 " +
-            "GROUP BY c.event.id")
-    List<CountCommentsByEventDto> countCommentByEvent(List<Long> eventIds);
+    Page<Comment> findAll(Specification<Comment> specification, Pageable pageable);
 
-    @Query("select c " +
-            "from comments as c " +
-            "where lower(c.text) like lower(concat('%', ?1, '%') )")
-    List<Comment> search(String text, Pageable pageable);
+    @Query("SELECT AVG(c.rating) FROM Comment c WHERE c.event.id = :eventId")
+    BigDecimal getAverageRatingByEventId(Long eventId);
+
+    default Comment getExistingComment(Long commentId) {
+        return findById(commentId).orElseThrow(() -> {
+            throw new CommentNotFoundException(String.format("Comment with id=%d was not found", commentId));
+        });
+    }
 }

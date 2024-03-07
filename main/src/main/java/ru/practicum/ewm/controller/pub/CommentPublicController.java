@@ -1,29 +1,29 @@
 package ru.practicum.ewm.controller.pub;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewm.model.Comment;
-import ru.practicum.ewm.service.CommentService;
+import ru.practicum.ewm.dto.comment.CommentDto;
+import ru.practicum.ewm.service.comment.CommentService;
 
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
-@Slf4j
-@Validated
 @RequiredArgsConstructor
-@RequestMapping(path = "/comments")
+@RequestMapping
 public class CommentPublicController {
+
     private final CommentService commentService;
 
-    @GetMapping("/{eventId}")
-    public List<Comment> getRequestListAllCommentsEvent(@PathVariable Long eventId,
-                                                        @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
-                                                        @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.info("GET запрос на получение всех комментариев своего события с id = {} ", eventId);
-        return commentService.getCommentEvent(eventId, from, size);
+    @GetMapping("/events/{eventId}/comments")
+    public List<CommentDto> getComments(@PathVariable Long eventId,
+                                        @RequestParam(defaultValue = "NEWEST_FIRST") String sort,
+                                        @RequestParam(defaultValue = "0") int from,
+                                        @RequestParam(defaultValue = "10") int size) {
+        return commentService.getComments(eventId, sort, from, size);
+    }
+
+    @GetMapping("/events/{eventId}/comments/{commentId}")
+    public CommentDto getComment(@PathVariable Long eventId, @PathVariable Long commentId) {
+        return commentService.getComment(eventId, commentId);
     }
 }

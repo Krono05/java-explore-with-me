@@ -1,42 +1,56 @@
-package ru.practicum.ewm.model;
+package ru.practicum.ewm.model.comment;
 
-
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.practicum.ewm.model.event.Event;
+import ru.practicum.ewm.model.photo.Photo;
 import ru.practicum.ewm.model.user.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-@Builder
-@Entity(name = "comments")
+@AllArgsConstructor
+@Entity
+@Table(name = "comments")
 public class Comment {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long id;
-    @Column(name = "text", nullable = false)
+
+    @Column(nullable = false, length = 2000)
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private User author;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id")
+    private Event event;
+
     @Column(name = "created")
-    @CreationTimestamp
     private LocalDateTime created;
 
-    @UpdateTimestamp
-    @Column(name = "last_updated_on")
-    private LocalDateTime lastUpdatedOn;
+    @Column(name = "rating")
+    private int rating;
+
+    @OneToMany(mappedBy = "comment")
+    private List<Photo> photos;
 }
