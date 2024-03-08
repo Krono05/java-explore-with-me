@@ -5,8 +5,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import ru.practicum.ewm.model.comment.Comment;
 
-import static ru.practicum.ewm.util.Constants.DATE_FORMAT;
-
 @Mapper
 public interface CommentMapper {
 
