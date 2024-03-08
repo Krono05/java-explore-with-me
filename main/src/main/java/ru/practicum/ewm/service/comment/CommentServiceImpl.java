@@ -40,6 +40,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
+    private final CommentMapper commentMapper;
 
     @Override
     public CommentDto addComment(Long userId, Long eventId, NewCommentDto newCommentDto) {
@@ -53,7 +54,8 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
             throw new ForbiddenException("Cannot leave a comment on the event again.");
         }
 
-        Comment comment = CommentMapper.toComment(newCommentDto);
+//        Comment comment = CommentMapper.toComment(newCommentDto);
+        Comment comment = CommentMapper.INSTANCE.toComment(newCommentDto);
         comment.setAuthor(user);
         comment.setEvent(event);
         comment.setCreated(LocalDateTime.now());
@@ -64,7 +66,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         calculateAndUpdateRating(event);
         log.info("Updated rating for the event with ID = {}, new rating = {}", eventId, event.getRating());
 
-        return CommentMapper.toCommentDto(addedComment);
+        return CommentMapper.INSTANCE.toCommentDto(comment);
     }
 
     @Override
@@ -96,7 +98,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
             throw new CommentNotFoundException(String.format("Comment with id=%d was not found", commentId));
         }
 
-        CommentDto commentDto = CommentMapper.toCommentDto(comment);
+        CommentDto commentDto = CommentMapper.INSTANCE.toCommentDto(comment);
 
         return commentDto;
     }
@@ -108,7 +110,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         List<CommentDto> comments = commentRepository.findByEventId(eventId, page)
                 .getContent()
                 .stream()
-                .map(CommentMapper::toCommentDto)
+                .map(commentMapper::toCommentDto)
                 .collect(Collectors.toList());
 
         return comments;
@@ -138,7 +140,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         }, page);
 
-        List<CommentDto> commentList = comments.getContent().stream().map(CommentMapper::toCommentDto).collect(Collectors.toList());
+        List<CommentDto> commentList = comments.getContent().stream().map(commentMapper::toCommentDto).collect(Collectors.toList());
         return commentList;
     }
 
