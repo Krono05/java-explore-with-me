@@ -1,7 +1,6 @@
 package ru.practicum.ewm.dto.comment;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import ru.practicum.ewm.model.comment.Comment;
 
