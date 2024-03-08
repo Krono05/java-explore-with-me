@@ -66,7 +66,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         calculateAndUpdateRating(event);
         log.info("Updated rating for the event with ID = {}, new rating = {}", eventId, event.getRating());
 
-        return CommentMapper.INSTANCE.toCommentDto(comment);
+        return CommentMapper.INSTANCE.toCommentDto(addedComment);
     }
 
     @Override

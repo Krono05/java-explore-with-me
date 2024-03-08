@@ -10,10 +10,6 @@ public interface CommentMapper {
 
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "author", ignore = true)
-    @Mapping(target = "created", ignore = true)
-    @Mapping(target = "event", ignore = true)
     Comment toComment(NewCommentDto newCommentDto);
 
     CommentDto toCommentDto(Comment comment);
