@@ -1,6 +1,5 @@
 package ru.practicum.ewm.dto.comment;
 
-import lombok.experimental.UtilityClass;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -19,7 +18,7 @@ public interface CommentMapper {
     Comment toComment(NewCommentDto newCommentDto);
 
     @Mapping(target = "authorName", source = "author.name")
-    @Mapping(target = "created", source = "created", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Mapping(target = "created", source = "created", dateFormat = DATE_FORMAT)
     CommentDto toCommentDto(Comment comment);
 }
 
