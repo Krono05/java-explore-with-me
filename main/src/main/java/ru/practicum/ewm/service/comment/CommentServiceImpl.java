@@ -55,7 +55,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
             throw new ForbiddenException("Cannot leave a comment on the event again.");
         }
 
-//        Comment comment = CommentMapper.toComment(newCommentDto);
         Comment comment = CommentMapper.INSTANCE.toComment(newCommentDto);
         comment.setAuthor(user);
         comment.setEvent(event);
@@ -68,7 +67,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         log.info("Updated rating for the event with ID = {}, new rating = {}", eventId, event.getRating());
 
         return CommentMapper.INSTANCE.toCommentDto(addedComment);
-//        return CommentMapper.toCommentDto(addedComment);
     }
 
     @Override
@@ -101,8 +99,7 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         }
 
         CommentDto commentDto = CommentMapper.INSTANCE.toCommentDto(comment);
-//        CommentDto commentDto = CommentMapper.toCommentDto(comment);
-//
+
         return commentDto;
     }
 
@@ -114,7 +111,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
                 .getContent()
                 .stream()
                 .map(commentMapper::toCommentDto)
-//                .map(CommentMapper::toCommentDto)
                 .collect(Collectors.toList());
 
         return comments;
@@ -145,7 +141,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
         }, page);
 
         List<CommentDto> commentList = comments.getContent().stream().map(commentMapper::toCommentDto).collect(Collectors.toList());
-//        List<CommentDto> commentList = comments.getContent().stream().map(CommentMapper::toCommentDto).collect(Collectors.toList());
         return commentList;
     }
 
