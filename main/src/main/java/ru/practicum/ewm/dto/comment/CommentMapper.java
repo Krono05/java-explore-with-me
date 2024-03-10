@@ -1,17 +1,32 @@
 package ru.practicum.ewm.dto.comment;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import lombok.experimental.UtilityClass;
 import ru.practicum.ewm.model.comment.Comment;
 
-@Mapper
-public interface CommentMapper {
+import static ru.practicum.ewm.util.Constants.DATE_FORMAT;
 
-    CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
+@UtilityClass
+public class CommentMapper {
 
-    Comment toComment(NewCommentDto newCommentDto);
+    public static Comment toComment(NewCommentDto newCommentDto) {
+        return new Comment(
+                null,
+                newCommentDto.getText(),
+                null,
+                null,
+                null,
+                newCommentDto.getRating()
 
-    CommentDto toCommentDto(Comment comment);
+        );
+    }
 
+    public static CommentDto toCommentDto(Comment comment) {
+        return new CommentDto(
+                comment.getId(),
+                comment.getAuthor().getName(),
+                comment.getText(),
+                comment.getCreated().format(DATE_FORMAT),
+                comment.getRating()
+        );
+    }
 }
