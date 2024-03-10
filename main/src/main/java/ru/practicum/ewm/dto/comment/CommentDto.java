@@ -1,4 +1,4 @@
-package ru.practicum.ewm.dto.user;
+package ru.practicum.ewm.dto.comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-
+public class CommentDto {
 
     private Long id;
 
-    private String email;
+    private String authorName;
 
-    private String name;
+    private String text;
+
+    private String created;
+
+    private int rating;
+
 }

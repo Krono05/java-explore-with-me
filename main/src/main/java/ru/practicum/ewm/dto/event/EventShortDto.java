@@ -7,6 +7,8 @@ import lombok.Setter;
 import ru.practicum.ewm.dto.category.CategoryDto;
 import ru.practicum.ewm.dto.user.UserShortDto;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,7 +29,12 @@ public class EventShortDto {
 
     private boolean paid;
 
+
     private String title;
 
     private Long views;
+
+    private int comments;
+
+    private BigDecimal rating;
 }
