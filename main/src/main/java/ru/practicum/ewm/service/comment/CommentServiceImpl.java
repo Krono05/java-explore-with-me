@@ -40,7 +40,6 @@ public class CommentServiceImpl extends PageRequestUtil implements CommentServic
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
-    private final CommentMapper commentMapper;
 
     @Override
     public CommentDto addComment(Long userId, Long eventId, NewCommentDto newCommentDto) {
