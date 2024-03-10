@@ -13,13 +13,14 @@ public interface CommentMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "created", ignore = true)
+    @Mapping(target = "event", ignore = true)
     Comment toComment(NewCommentDto newCommentDto);
 
     @Mapping(target = "authorName", source = "author.name")
     @Mapping(target = "created", source = "created", dateFormat = "yyyy-MM-dd HH:mm:ss")
     CommentDto toCommentDto(Comment comment);
 }
-
+//
 //    public static Comment toComment(NewCommentDto newCommentDto) {
 //        return new Comment(
 //                null,
