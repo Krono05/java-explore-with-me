@@ -2,25 +2,24 @@ package ru.practicum.ewm.dto.comment;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 import ru.practicum.ewm.model.comment.Comment;
 
-@Mapper
+@Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CommentMapper {
 
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "author", ignore = true)
-    @Mapping(target = "created", ignore = true)
-    @Mapping(target = "event", ignore = true)
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "author", ignore = true)
+//    @Mapping(target = "created", ignore = true)
+//    @Mapping(target = "event", ignore = true)
     Comment toComment(NewCommentDto newCommentDto);
 
-    @Mapping(target = "authorName", source = "author.name")
-    @Mapping(target = "created", source = "created", dateFormat = "yyyy-MM-dd HH:mm:ss")
     CommentDto toCommentDto(Comment comment);
 }
-//
+////
 //    public static Comment toComment(NewCommentDto newCommentDto) {
 //        return new Comment(
 //                null,
